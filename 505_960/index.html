@@ -9,8 +9,7 @@
     padding: 0;
 }
 
-html,
-body {
+html, body {
     width: 100%;
     min-height: 100%;
 }
@@ -59,15 +58,12 @@ body::after {
     min-height: 470px;
     margin: 10vh auto 0;
     padding: 55px 55px 38px;
-
     background: rgba(7, 13, 20, .88);
     border: 1px solid rgba(0, 210, 255, .28);
     border-radius: 22px;
-
     box-shadow:
         0 0 45px rgba(0, 180, 255, .08),
         inset 0 0 50px rgba(0, 0, 0, .35);
-
     backdrop-filter: blur(14px);
 }
 
@@ -80,7 +76,6 @@ header {
     justify-content: center;
     align-items: baseline;
     gap: 13px;
-
     font-size: clamp(38px, 8vw, 64px);
     font-weight: 900;
     letter-spacing: -3px;
@@ -110,13 +105,10 @@ header {
     display: inline-block;
     margin-top: 22px;
     padding: 7px 15px;
-
     border: 1px solid rgba(0, 217, 255, .35);
     border-radius: 30px;
-
     color: #00d9ff;
     background: rgba(0, 217, 255, .055);
-
     font-size: 11px;
     font-weight: bold;
     letter-spacing: 2px;
@@ -126,7 +118,6 @@ header {
     height: 1px;
     margin: 42px 0 30px;
     border: 0;
-
     background:
         linear-gradient(
             90deg,
@@ -166,11 +157,9 @@ header {
     width: 100%;
     min-height: 125px;
     padding: 16px;
-
     background: rgba(0, 0, 0, .22);
     border: 1px solid rgba(255,255,255,.06);
     border-radius: 12px;
-
     overflow: hidden;
 }
 
@@ -179,11 +168,9 @@ header {
     position: absolute;
     top: 0;
     left: 50%;
-
     width: 80px;
     height: 1px;
     transform: translateX(-50%);
-
     background: #00d9ff;
     opacity: .65;
 }
@@ -191,15 +178,11 @@ header {
 #console {
     position: relative;
     z-index: 2;
-
     width: 100%;
-    min-height: 90px;
-
     color: #a9c4ce;
     font-family: Consolas, "Courier New", monospace;
     font-size: 12px;
     line-height: 1.7;
-
     text-align: left;
     white-space: pre-wrap;
     overflow: hidden;
@@ -223,7 +206,6 @@ header {
 }
 
 @media (max-width: 600px) {
-
     .container {
         margin-top: 5vh;
         padding: 40px 22px 30px;
