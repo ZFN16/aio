@@ -1,280 +1,56 @@
 <html manifest="ps4jb.cache">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>ZEFEN - Cache Installer</title>
-
-<style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body {
-    width: 100%;
-    min-height: 100%;
-}
-
-body {
-    background:
-        radial-gradient(circle at 50% 0%, rgba(0, 210, 255, .12), transparent 35%),
-        linear-gradient(135deg, #05070b 0%, #0a1018 48%, #030507 100%);
-    color: #e8faff;
-    font-family: Arial, Helvetica, sans-serif;
-    overflow: hidden;
-}
-
-body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    opacity: .25;
-
-    background-image:
-        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
-
-    background-size: 35px 35px;
-}
-
-body::after {
-    content: "";
-    position: fixed;
-    width: 420px;
-    height: 420px;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    border: 1px solid rgba(0, 210, 255, .08);
-    border-radius: 50%;
-
-    box-shadow:
-        0 0 0 50px rgba(0, 210, 255, .015),
-        0 0 0 100px rgba(0, 210, 255, .01);
-
-    pointer-events: none;
-}
-
-.container {
-    position: relative;
-    z-index: 2;
-
-    width: min(92%, 720px);
-    min-height: 470px;
-
-    margin: 10vh auto 0;
-    padding: 55px 55px 38px;
-
-    background: rgba(7, 13, 20, .88);
-
-    border: 1px solid rgba(0, 210, 255, .28);
-    border-radius: 22px;
-
-    box-shadow:
-        0 0 45px rgba(0, 180, 255, .08),
-        inset 0 0 50px rgba(0, 0, 0, .35);
-
-    backdrop-filter: blur(14px);
-}
-
-header {
-    text-align: center;
-}
-
-.main-title {
-    display: flex;
-    justify-content: center;
-    align-items: baseline;
-    gap: 13px;
-
-    font-size: clamp(38px, 8vw, 64px);
-    font-weight: 900;
-    letter-spacing: -3px;
-    line-height: 1;
-}
-
-.highlight {
-    color: #ffffff;
-    text-shadow: 0 0 22px rgba(255,255,255,.15);
-}
-
-.ps4-text {
-    color: #00d9ff;
-    text-shadow: 0 0 18px rgba(0,217,255,.55);
-}
-
-.subtitle {
-    margin-top: 17px;
-
-    font-size: 13px;
-    font-weight: bold;
-
-    letter-spacing: 6px;
-    text-transform: uppercase;
-
-    color: #7293a4;
-}
-
-.version-badge {
-    display: inline-block;
-
-    margin-top: 22px;
-    padding: 7px 15px;
-
-    border: 1px solid rgba(0, 217, 255, .35);
-    border-radius: 30px;
-
-    color: #00d9ff;
-    background: rgba(0, 217, 255, .055);
-
-    font-size: 11px;
-    font-weight: bold;
-
-    letter-spacing: 2px;
-}
-
-.separator {
-    height: 1px;
-    margin: 42px 0 36px;
-    border: 0;
-
-    background:
-        linear-gradient(
-            90deg,
-            transparent,
-            rgba(0, 217, 255, .55),
-            transparent
-        );
-}
-
-#console {
-    position: relative;
-    z-index: 2;
-
-    width: 100%;
-    min-height: 100px;
-
-    padding: 18px;
-
-    background: rgba(0, 0, 0, .22);
-
-    border: 1px solid rgba(255,255,255,.06);
-    border-radius: 12px;
-
-    color: #a9c4ce;
-
-    font-family: Consolas, "Courier New", monospace;
-    font-size: 13px;
-    line-height: 1.7;
-
-    text-align: left;
-    white-space: pre-wrap;
-
-    overflow: hidden;
-}
-
-.cache-status {
-    margin-top: 18px;
-
-    font-size: 11px;
-    color: #526b77;
-
-    letter-spacing: 1px;
-    text-align: center;
-}
-
-.cache-status span {
-    color: #00d9ff;
-}
-
-footer {
-    margin-top: 30px;
-    text-align: center;
-}
-
-.credit {
-    font-size: 11px;
-    color: #526b77;
-}
-
-.disclaimer {
-    margin-top: 9px;
-
-    font-size: 10px;
-    color: #3e555f;
-
-    letter-spacing: .4px;
-}
-
-@media (max-width: 600px) {
-    .container {
-        margin-top: 5vh;
-        padding: 40px 22px 30px;
-        min-height: 450px;
-    }
-
-    .main-title {
-        gap: 7px;
-        letter-spacing: -2px;
-    }
-
-    .subtitle {
-        letter-spacing: 4px;
-    }
-
-    .separator {
-        margin: 32px 0 28px;
-    }
-}
-</style>
-</head>
-
-<body>
-
-<div class="container">
-
-    <header>
-        <h1 class="main-title">
-            <span class="highlight">ZEFEN</span>
-            <span class="ps4-text">STORE</span>
-        </h1>
-
-        <div class="subtitle">
-            PlayStation Exploit Host
+  <head>
+    <meta charset="utf-8">
+    <title>PS4 Jailbreak</title>
+    <style>
+      body {
+        background-color: #000000;
+        color: #ffffff;
+        font-family: "Segoe UI", Tahoma, sans-serif;
+        text-align: center;
+      }
+      .container {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+        }
+      .header-section {
+		text-align: center;
+      }
+      .main-title {
+		background: linear-gradient(45deg, #ff00aa, #00ffff, #ff00ff, #00ff9d);
+		background-size: 300% 300%;
+		-webkit-background-clip: text;
+		-webkit-text-fill-color: transparent;
+		animation: gradientFlow 8s ease infinite;
+		text-shadow: 0 0 30px rgba(255, 0, 170, 0.7);
+      }
+      @keyframes gradientFlow {
+		0% {background-position: 0% 50%;}
+		50% {background-position: 100% 50%;}
+		100% {background-position: 0% 50%;}
+      }
+      #console {
+        font-family: monospace;
+        color: #ffffff;
+        padding: 12px;
+        font-size: 18px;
+        text-align: left;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+        <div class="header-section">
+            <h1 class="main-title">Auto JB PS4 5.05, 6.70 - 9.60</h1>
         </div>
-
-        <div class="version-badge">
-            Supported: Firmware 5.05 - 9.60
-        </div>
-    </header>
-
-    <hr class="separator">
-
-    <pre id="console"></pre>
-
-    <div class="cache-status">
-        <span>●</span> Preparing offline cache
     </div>
-
-    <footer>
-        <p class="credit">
-            Special Thanks For All Developers Scene PS4
-        </p>
-
-        <p class="disclaimer">
-		<br>
-            Provided as-is for research, educational & development purposes.
-Use at your own risk. <br> The author assumes no responsibility for
-damage, data loss, or system instability resulting from its use.
-        </p>
-    </footer>
-
-</div>
-
+    <div style='text-align:left;position:fixed;left:10px;bottom:10px;width:100%;font-size:12px;color:#888'><center>Special Thanks to:<br><strong> TheFloW - SpecterDev  -ChendoChap - Znullptr - Sleirsgoevy - SiSTRo - Feyzee - CM<br>And everyone who helps improve the PS4 scene</strong></center></font></div>
+	<pre id="console"></pre>
+  </body>
   <script>
     // Clear history and prevent back navigation
     history.replaceState(null, null, 'index.html');
