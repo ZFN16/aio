@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en" manifest="CSSFontFace.manifest">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>ZEFEN - 10.00 / 11.02 Engine</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+
+html,body{
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    background:
+        radial-gradient(circle at 50% 0%,rgba(0,210,255,.12),transparent 35%),
+        linear-gradient(135deg,#05070b 0%,#0a1018 48%,#030507 100%);
+    color:#e8faff;
+    font-family:Arial,Helvetica,sans-serif;
+    overflow:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    opacity:.25;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+    background-size:35px 35px;
+}
+
+body::after{
+    content:"";
+    position:fixed;
+    width:420px;
+    height:420px;
+    left:50%;
+    top:50%;
+    transform:translate(-50%,-50%);
+    border:1px solid rgba(0,210,255,.08);
+    border-radius:50%;
+    box-shadow:
+        0 0 0 50px rgba(0,210,255,.015),
+        0 0 0 100px rgba(0,210,255,.01);
+    pointer-events:none;
+}
+
+.container{
+    position:relative;
+    z-index:2;
+    width:min(92%,720px);
+    min-height:470px;
+    margin:7vh auto 0;
+    padding:48px 55px 36px;
+    background:rgba(7,13,20,.88);
+    border:1px solid rgba(0,210,255,.28);
+    border-radius:22px;
+    box-shadow:
+        0 0 45px rgba(0,180,255,.08),
+        inset 0 0 50px rgba(0,0,0,.35);
+    backdrop-filter:blur(14px);
+}
+
+header{text-align:center}
+
+.main-title{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap:13px;
+    font-size:clamp(38px,8vw,64px);
+    font-weight:900;
+    letter-spacing:-3px;
+    line-height:1;
+}
+
+.highlight{
+    color:#fff;
+    text-shadow:0 0 22px rgba(255,255,255,.15);
+}
+
+.ps4-text{
+    color:#00d9ff;
+    text-shadow:0 0 18px rgba(0,217,255,.55);
+}
+
+.subtitle{
+    margin-top:17px;
+    font-size:13px;
+    font-weight:bold;
+    letter-spacing:6px;
+    text-transform:uppercase;
+    color:#7293a4;
+}
+
+.version-badge{
+    display:inline-block;
+    margin-top:22px;
+    padding:7px 15px;
+    border:1px solid rgba(0,217,255,.35);
+    border-radius:30px;
+    color:#00d9ff;
+    background:rgba(0,217,255,.055);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:2px;
+}
+
+.separator{
+    height:1px;
+    margin:34px 0 27px;
+    border:0;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        rgba(0,217,255,.55),
+        transparent
+    );
+}
+
+.engine-title{
+    text-align:center;
+    font-size:18px;
+    font-weight:700;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:#c9e8f2;
+}
+
+.engine-range{
+    margin-top:10px;
+    color:#637c89;
+    font-size:12px;
+    letter-spacing:1px;
+    text-align:center;
+}
+
+.engine-range span{color:#00d9ff}
+
+.btn-container{
+    position:relative;
+    margin-top:23px;
+    padding:17px;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    background:rgba(0,0,0,.22);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:12px;
+}
+
+/* Original IDs retained for engine compatibility. */
+
+#kernel-options{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:8px;
+    width:100%;
+}
+
+#kernel-options input[type="radio"]{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+}
+
+#kernel-options label{
+    padding:8px 15px;
+    border:1px solid rgba(0,217,255,.18);
+    border-radius:20px;
+    color:#718995;
+    background:rgba(0,217,255,.025);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:1px;
+    cursor:pointer;
+}
+
+#kernel-options input[type="radio"]:checked + label{
+    color:#00d9ff;
+    border-color:rgba(0,217,255,.5);
+    background:rgba(0,217,255,.08);
+    box-shadow:0 0 15px rgba(0,217,255,.08);
+}
+
+#jeilbrek{
+    appearance:none;
+    border:1px solid rgba(0,217,255,.42);
+    border-radius:20px;
+    padding:9px 24px;
+    color:#00d9ff;
+    background:rgba(0,217,255,.06);
+    font-size:11px;
+    font-weight:bold;
+    letter-spacing:2px;
+    cursor:pointer;
+}
+
+#jeilbrek:hover{
+    background:rgba(0,217,255,.12);
+}
+
+.autoJb{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    color:#637c89;
+    font-size:11px;
+}
+
+#autoJbInput{
+    accent-color:#00d9ff;
+}
+
+.main-layout{
+    margin-top:21px;
+    position:relative;
+    width:100%;
+}
+
+#console{
+    width:100%;
+    min-height:105px;
+    padding:16px;
+    background:rgba(0,0,0,.22);
+    border:1px solid rgba(255,255,255,.06);
+    border-radius:12px;
+    color:#a9c4ce;
+    font-family:Consolas,"Courier New",monospace;
+    font-size:12px;
+    line-height:1.7;
+    text-align:left;
+    white-space:pre-wrap;
+    overflow:hidden;
+}
+
+.footer{
+    margin-top:25px;
+    text-align:center;
+}
+
+.credit{
+    font-size:11px;
+    color:#526b77;
+}
+
+.disclaimer{
+    margin-top:8px;
+    font-size:10px;
+    color:#3e555f;
+    letter-spacing:.4px;
+}
+
+@media(max-width:600px){
+    .container{
+        margin-top:4vh;
+        padding:38px 22px 30px;
+        min-height:450px;
+    }
+
+    .main-title{
+        gap:7px;
+        letter-spacing:-2px;
+    }
+
+    .subtitle{
+        letter-spacing:4px;
+    }
+
+    .separator{
+        margin:28px 0 22px;
+    }
+
+    .btn-container{
+        padding:14px 10px;
+    }
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<header>
+
+    <h1 class="main-title">
+        <span class="highlight">ZEFEN</span>
+        <span class="ps4-text">STORE</span>
+    </h1>
+
+    <div class="subtitle">
+        PlayStation Exploit Host
+    </div>
+
+    <div class="version-badge">
+        CSSFontFace Exploit
+    </div>
+
+</header>
+
+<hr class="separator">
+
+<h2 class="engine-title">
+    System Initialization
+</h2>
+
+<p class="engine-range">
+    Supported:
+    <span>10.00 - 11.02</span>
+</p>
+
+<div class="btn-container">
+
+    <form id="kernel-options">
+
+        <input
+            type="radio"
+            name="kernel"
+            id="netctrl-exploit"
+            value="netctrl">
+
+        <label for="netctrl-exploit">
+            NetCtrl
+        </label>
+
+        <input
+            type="radio"
+            name="kernel"
+            id="lapse-exploit"
+            value="lapse">
+
+        <label for="lapse-exploit">
+            Lapse
+        </label>
+
+    </form>
+
+    <button id="jeilbrek">
+        Jailbreak
+    </button>
+
+    <div class="autoJb">
+
+        <label for="autoJbInput" id="autoJbLabel">
+            Auto Jailbreak
+        </label>
+
+        <input
+            class="mt-2"
+            id="autoJbInput"
+            type="checkbox">
+
+    </div>
+
+</div>
+
+<div class="main-layout">
+
+    <pre id="console">Caching offline files... 0%</pre>
+
+</div>
+
+<div class="footer">
+
+    <p class="credit">
+        Special Thanks For All Developers Scene PS4
+    </p>
+
+     <p class="disclaimer">
+		<br>
+            Provided as-is for research, educational & development purposes.
+Use at your own risk. <br> The author assumes no responsibility for
+damage, data loss, or system instability resulting from its use.
+        </p>
+
+</div>
+
+</div>
+
+<script>
+    var scriptsLoaded = false;
+
+    function triggerScripts() {
+      if (scriptsLoaded) return;
+      scriptsLoaded = true;
+
+      var consoleLog = document.getElementById('console');
+      if (consoleLog) consoleLog.innerText += "\nLoading main.js & script.js...";
+
+      var s1 = document.createElement('script');
+      s1.src = 'src/main.js';
+      s1.onerror = function() {
+        if (consoleLog) consoleLog.innerText += "\n❌ Error: Gagal memuat src/main.js (Cek path/file)";
+      };
+      
+      s1.onload = function() {
+        var s2 = document.createElement('script');
+        s2.src = 'includes/script.js';
+        s2.onerror = function() {
+          if (consoleLog) consoleLog.innerText += "\n❌ Error: Gagal memuat includes/script.js (Cek path/file)";
+        };
+        document.body.appendChild(s2);
+      };
+
+      document.body.appendChild(s1);
+    }
+
+    if (window.applicationCache) {
+      var appCache = window.applicationCache;
+      var consoleLog = document.getElementById('console');
+
+      appCache.addEventListener('progress', function(e) {
+        if (e.lengthComputable && consoleLog) {
+          var percent = Math.round((e.loaded / e.total) * 100);
+          consoleLog.innerText = "Caching offline files... " + percent + "%";
+        }
+      }, false);
+
+      appCache.addEventListener('cached', function() {
+        if (consoleLog) consoleLog.innerText = "Offline cache complete (100%)!";
+        triggerScripts();
+      }, false);
+
+      appCache.addEventListener('noupdate', function() {
+        if (consoleLog) consoleLog.innerText = "Offline cache ready.";
+        triggerScripts();
+      }, false);
+
+      appCache.addEventListener('error', function() {
+        if (consoleLog) consoleLog.innerText = "Cache error/offline mode.";
+        triggerScripts();
+      }, false);
+
+      setTimeout(function() {
+        if (!scriptsLoaded) {
+          if (consoleLog) consoleLog.innerText += "\n[Timeout] ...";
+          triggerScripts();
+        }
+      }, 3000);
+
+    } else {
+      triggerScripts();
+    }
+  </script>
+</body>
+</html>
