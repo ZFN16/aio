@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html manifest="cache.manifest">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Installing Offline Host</title></head>
+<body style="margin:0;min-height:100vh;background:#0b0c0f;color:#f4f5f7;font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;text-align:center">
+<div><div id="msgs" style="font-size:18px">Installing offline host...</div><div style="margin-top:10px;color:#9297a1;font-size:12px">9.00 core</div></div>
+<script>
+function DLProgress(e){var p=Math.round(e.loaded/e.total*100);document.getElementById('msgs').textContent='Installing Offline Cache: '+p+'%';}
+function done(){setTimeout(function(){document.getElementById('msgs').textContent='Cache Installed Successfully';},800);}
+if(window.applicationCache){window.applicationCache.addEventListener('progress',DLProgress,false);window.applicationCache.oncached=done;window.applicationCache.onupdateready=done;}
+</script>
+</body>
+</html>

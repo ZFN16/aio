@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIO Host — 9.00</title>
+<script src="int64.js"></script>
+<script src="rop.js"></script>
+<script src="kexploit.js"></script>
+<script src="webkit.js"></script>
+<style>
+:root{
+ --bg:#0b0c0f;--surface:#121419;--surface2:#181b21;--border:#2a2e36;
+ --text:#f4f5f7;--muted:#9297a1;--subtle:#656b76;--blue:#7fa8d9;
+ --success:#78c99e;--danger:#d97984;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%;background:var(--bg)}
+body{
+ min-height:100vh;display:flex;flex-direction:column;color:var(--text);
+ font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden;
+ background:radial-gradient(850px 460px at 50% -210px,rgba(127,168,217,.085),transparent 68%),
+ linear-gradient(180deg,#0c0d11 0%,#090a0d 100%);
+}
+body:before{
+ content:"";position:fixed;inset:0;pointer-events:none;opacity:.11;
+ background-image:linear-gradient(rgba(255,255,255,.028) 1px,transparent 1px),
+ linear-gradient(90deg,rgba(255,255,255,.028) 1px,transparent 1px);
+ background-size:56px 56px;
+}
+.shell{position:relative;z-index:1;width:min(100% - 40px,920px);min-height:100vh;margin:auto;display:flex;flex-direction:column}
+main{flex:1;display:flex;align-items:center;justify-content:center;padding:40px 0}
+.panel{width:100%;max-width:760px}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:20px;color:var(--muted);
+ font:500 10px/1 "SFMono-Regular",Consolas,"Liberation Mono",monospace;letter-spacing:.18em}
+.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--success);box-shadow:0 0 12px rgba(120,201,158,.3)}
+h1{font-size:clamp(42px,7vw,72px);line-height:.95;font-weight:500;letter-spacing:-.06em}
+h1 span{color:var(--blue)}
+.subtitle{margin-top:14px;color:var(--muted);font-size:13px;line-height:1.5}
+.status-card{margin-top:26px;padding:22px;background:rgba(18,20,25,.94);border:1px solid var(--border);border-radius:8px}
+.status-head{display:flex;justify-content:space-between;gap:20px;align-items:center}
+.label{color:var(--subtle);font:500 9px/1 "SFMono-Regular",Consolas,"Liberation Mono",monospace;letter-spacing:.14em;text-transform:uppercase}
+.badge{padding:6px 9px;border:1px solid rgba(120,201,158,.3);border-radius:4px;color:var(--success);
+ font:500 9px/1 "SFMono-Regular",Consolas,"Liberation Mono",monospace;letter-spacing:.1em}
+#msgs2{margin-top:13px;color:var(--text);font-size:16px;line-height:1.5}
+#msgs{margin-top:10px;color:var(--muted);font:11px/1.6 "SFMono-Regular",Consolas,"Liberation Mono",monospace}
+.progress-line{height:2px;margin-top:20px;overflow:hidden;background:#242831;border-radius:2px}
+.progress-line:after{content:"";display:block;width:38%;height:100%;background:var(--blue);animation:scan 1.3s ease-in-out infinite}
+@keyframes scan{0%{transform:translateX(-110%)}100%{transform:translateX(290%)}}
+.footer{padding:16px 0 21px;border-top:1px solid var(--border);color:var(--subtle);text-align:center;
+ font:10px/1.5 "SFMono-Regular",Consolas,"Liberation Mono",monospace}
+@media(max-width:600px){
+ .shell{width:calc(100% - 28px)}
+ main{padding:30px 0}
+ .status-card{padding:18px}
+ h1{font-size:40px}
+}
+</style>
+</head>
+<body onload="setTimeout(poc, 50);">
+<div class="shell">
+<main>
+<section class="panel">
+<div class="eyebrow">OFFLINE HOST / FIRMWARE 9.00</div>
+<h1>AIO <span>Host</span></h1>
+<p class="subtitle">Automatic jailbreak environment · no host selection required</p>
+
+<div class="status-card" id="progress">
+ <div class="status-head">
+  <div class="label">System status</div>
+  <div class="badge">9.00 / READY</div>
+ </div>
+ <div id="msgs2">Loading Jailbreak...</div>
+ <div id="msgs"></div>
+ <div class="progress-line"></div>
+</div>
+
+<div id="menu" style="display:none"></div>
+<div id="lnx" style="display:none"></div>
+<div id="mods" style="display:none"></div>
+<select id="tempC" style="display:none"></select>
+</section>
+</main>
+<footer class="footer">AIO HOST &nbsp; // &nbsp; OFFLINE ENVIRONMENT</footer>
+</div>
+
+<script>
+
+if (window.applicationCache.status=='0'){window.location.replace("cache.html");}
+
+function jbdone(){
+ document.getElementById("menu").style.display = "block";
+ document.getElementById("progress").style.display = "none";
+}
+
+function allset(){
+ msgs.innerHTML = LoadedMSG;
+ document.getElementById("msgs2").innerHTML = LoadedMSG;
+}
+
+function load_poc(){
+ var req = new XMLHttpRequest();
+ req.responseType = "arraybuffer";
+ req.open('GET', PLfile);
+ req.send();
+ req.onreadystatechange = function () {
+  if (req.readyState == 4) {
+   PLD = req.response;
+   var payload_buffer = chain.syscall(477, 0, PLD.byteLength*4 , 7, 0x1002, -1, 0);
+   var pl = p.array_from_address(payload_buffer, PLD.byteLength*4);
+   var padding = new Uint8Array(4 - (req.response.byteLength % 4) % 4);
+   var tmp = new Uint8Array(req.response.byteLength + padding.byteLength);
+   tmp.set(new Uint8Array(req.response), 0);
+   tmp.set(padding, req.response.byteLength);
+   var shellcode = new Uint32Array(tmp.buffer);
+   pl.set(shellcode,0);
+   var pthread = p.malloc(0x10);
+   chain.call(libKernelBase.add32(OFFSET_lk_pthread_create), pthread, 0x0, payload_buffer, 0);
+   allset();
+  }
+ };
+}
+
+function load_goldhenbeta(){
+LoadedMSG = "GoldHEN v2.4b18.10 Loaded ...";
+PLfile = "goldhen_2.4b18.10.bin";
+load_poc();
+}
+
+</script>
+
+<script>
+/* AIO automatic payload stage: GoldHEN 2.4b18.10 only. */
+(function(){
+    var launched=false;
+    function tryLaunch(){
+        if(launched) return;
+        var progress=document.getElementById("progress");
+        if(progress && progress.style.display==="none" &&
+           typeof load_goldhenbeta==="function"){
+            launched=true;
+            setTimeout(function(){ load_goldhenbeta(); },150);
+            return;
+        }
+        setTimeout(tryLaunch,100);
+    }
+    tryLaunch();
+})();
+</script>
+</body>
+</html>

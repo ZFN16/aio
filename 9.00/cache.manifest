@@ -1,0 +1,14 @@
+CACHE MANIFEST
+# AIO 9.00 core
+
+CACHE:
+cache.html
+index.html
+int64.js
+rop.js
+kexploit.js
+webkit.js
+goldhen_2.4b18.10.bin
+
+NETWORK:
+*
